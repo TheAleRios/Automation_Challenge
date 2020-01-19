@@ -1,5 +1,7 @@
 package automation_challenge;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -22,6 +24,7 @@ public class WebDriverMain {
 	
 	driver = new ChromeDriver();
 	WebDriverWait wait=new WebDriverWait(driver, 20);
+	driver.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
 	driver.manage().window().fullscreen();
 
 	//Deeping into the Ali express webpage
@@ -53,19 +56,39 @@ public class WebDriverMain {
  	 button.sendKeys("2");
  	 button.sendKeys(Keys.RETURN);
  	 
+ 	 
     
-    //driver.find_elements_by_xpath("//*[contains(text(), 'My Button')]")
-    
-	
-	
-	//driver.find_elements_by_xpath("//*[contains(text(), 'My Button')]")
-	
-	
 	//searching for the second add result, if there is one click it else giving back an error
 	
-	
-	
+ 	
+ 	 WebElement itemLists;
+	 itemLists= wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("list-items")));
+	 itemLists.click();
+ 	
+ 	WebElement Element = driver.findElement(By.className("list-items"));
+ 	List <WebElement> Element2 = Element.findElements(By.className("list-item"));
+
+ 	WebElement X = Element2.get(1).findElement(By.className("product-img"));
+ 	X.click();
+
+ 	
+ 	//taking quantity number from the product
+ 	
+    ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+    driver.switchTo().window(tabs2.get(1));
+    
+    WebElement quantityTip = driver.findElement(By.className("product-quantity-tip"));
+    WebElement textConverted = quantityTip.findElement(By.tagName("span"));
+    
+    
+    String fullQuantity = textConverted.getText();
+    System.out.println(fullQuantity.replace(" unidades disponibles", ""));
+    
+ 	
 	//Going into the result, if there is 1 or more items available test is ok, else test will fail
+    
+    
+    
 	
 	//driver.close();
 	}
