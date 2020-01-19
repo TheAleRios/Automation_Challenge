@@ -15,6 +15,8 @@ import org.openqa.selenium.Keys;
 
 public class WebDriverMain {
 	
+static String selectedPage = "2";
+static int selectedItem = 2;
 	
 	public static void main (String[] args){
 	
@@ -51,9 +53,10 @@ public class WebDriverMain {
 
 	  ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,15000)");
 
+	 
      WebElement button;
 	 button= wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/div/div[3]/div/div[2]/span[3]/input")));
- 	 button.sendKeys("2");
+ 	 button.sendKeys(selectedPage);
  	 button.sendKeys(Keys.RETURN);
  	 
  	 
@@ -67,12 +70,12 @@ public class WebDriverMain {
  	
  	WebElement Element = driver.findElement(By.className("list-items"));
  	List <WebElement> Element2 = Element.findElements(By.className("list-item"));
-
- 	WebElement X = Element2.get(1).findElement(By.className("product-img"));
+ 
+ 	WebElement X = Element2.get(selectedItem-1).findElement(By.className("product-img"));
  	X.click();
 
  	
- 	//taking quantity number from the product
+ 	//switching to 2nd tab and taking quantity number from the product
  	
     ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
     driver.switchTo().window(tabs2.get(1));
@@ -91,6 +94,7 @@ public class WebDriverMain {
     
     if (a >= 1) {
     	
+    	System.out.println("There are "+fullQuantity+" items availables in item N°"+selectedItem+ " for search page N°"+ selectedPage);
     	System.out.println("There is more than 1 item to be bought");
     	
     }
@@ -101,7 +105,9 @@ public class WebDriverMain {
          } 
     
 	
-	//driver.close();
+	driver.close();
+	driver.switchTo().window(tabs2.get(0));
+	driver.close();
 	}
 	
 	
