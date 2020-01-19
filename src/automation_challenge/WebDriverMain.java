@@ -81,13 +81,24 @@ public class WebDriverMain {
     WebElement textConverted = quantityTip.findElement(By.tagName("span"));
     
     
-    String fullQuantity = textConverted.getText();
-    System.out.println(fullQuantity.replace(" unidades disponibles", ""));
+    String quantityText = textConverted.getText();
+   // System.out.println(quantityT.replace(" unidades disponibles", ""));
     
- 	
+    String  fullQuantity = quantityText.replace(" unidades disponibles", "");
+    
+ 	int a = Integer.parseInt(fullQuantity);
 	//Going into the result, if there is 1 or more items available test is ok, else test will fail
     
+    if (a >= 1) {
+    	
+    	System.out.println("There is more than 1 item to be bought");
+    	
+    }
     
+         else {
+        	 
+        	 System.out.println("There are not items left to be bought");
+         } 
     
 	
 	//driver.close();
